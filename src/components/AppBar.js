@@ -11,9 +11,9 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            CLASS2022 Bank, Inc.
+            PRG7936 Bank, Inc.
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Sign out</Button>
         </Toolbar>
       </AppBar>
     </Box>
