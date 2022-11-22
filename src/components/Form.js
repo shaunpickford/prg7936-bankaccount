@@ -15,7 +15,7 @@ function Form() {
     const [balance, setBalance] = useState(999);
 
     // state variable to track the amount field
-    const [amount, setAmount] = useState(20);
+    const [amount, setAmount] = useState(50);
 
     const [selectedTab, setSelectedTab] = useState(0);
 
