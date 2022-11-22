@@ -12,7 +12,7 @@ import Tab from '@mui/material/Tab';
 // 2. Create your component function
 function Form() {
     // state variable to track the account balance
-    const [balance, setBalance] = useState(25);
+    const [balance, setBalance] = useState(100);
 
     // state variable to track the amount field
     const [amount, setAmount] = useState(20);
