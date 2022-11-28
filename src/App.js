@@ -1,15 +1,19 @@
+import { useState } from 'react';
+
 import './App.css';
 // Import the Heading component
-import HeadingComponent from './components/Heading';
-import Form from './components/Form';
+import ManageAccount from './components/ManageAccount';
 import AppBar from './components/AppBar';
 
 // This is a component named App
 function App() {
+  // state variable to track the signed in user
+  const [currentUser, setCurrentUser] = useState(null);
+  
   return (
     <div className="App">
       <AppBar />
-      <Form />
+      <ManageAccount />
     </div>
   );
 }

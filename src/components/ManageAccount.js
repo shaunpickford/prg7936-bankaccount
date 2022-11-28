@@ -2,7 +2,10 @@
 // useState = "state hook"
 import { useState } from 'react';
 import Heading from './Heading';
-import Alert from '@mui/material/Alert';
+import Deposits from './Deposits';
+import Withdrawals from './Withdrawals';
+import Balance from './Balance';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -10,7 +13,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 // 2. Create your component function
-function Form() {
+function ManageAccount() {
     // state variable to track the account balance
     const [balance, setBalance] = useState(999);
 
@@ -28,6 +31,11 @@ function Form() {
         setBalance(balance - amount);
     }
 
+    const updateBalance = (change) => {
+        let newBalance = balance + change;
+        setBalance(newBalance);
+    }
+
     const onFieldChange = (evt) => {
         // gives us the data in the field
         let newAmount = evt.target.value;
@@ -42,53 +50,30 @@ function Form() {
         setSelectedTab(tabIndex);
     }
 
-    // If the amount is less than the balance, user can withdraw
-    let canWithdraw = true;
-    if (amount > balance) {
-        canWithdraw = false;
-    }
-
-    // Calculate new balance
-    //const newBalance = balance + amount;
-
     return (
         <div style={{padding: 16}}>
             <Heading text="Manage Account" type="h2" />
+            <Balance balance={balance} />
             <Tabs value={selectedTab} onChange={onTabChange}>
                 <Tab label="Deposit" />
                 <Tab label="Withdrawal" />
             </Tabs>
             {selectedTab === 0 ? (
-                <Heading text="Deposit Funds" type="h3" />
+                <Deposits
+                    balance={balance}
+                    updateBalance={updateBalance}
+                />
             ) : (
-                <Heading text="Withdraw Funds" type="h3" />
+                <Withdrawals
+                    balance={balance}
+                    updateBalance={updateBalance}
+                />
             )}
-            <b>Your balance: {balance}</b>
             <br />
-            <div>Transaction Amount: {amount}</div>
-            
-            {/* Add a form field (number) to enter amount */}
-            {/* <input type="number" value={amount} onChange={onFieldChange}/>
-            <button onClick={deposit}>Deposit</button>
-            <button onClick={withdraw}>Withdraw</button> */}
             <hr />
-            <Stack spacing={2} direction="row" justifyContent="center">
-                <input type="number" value={amount} onChange={onFieldChange}/>
-                <Button variant="outlined" size="small" onClick={deposit}>Deposit</Button>
-                <Button variant="outlined" size="small" onClick={withdraw} disabled={canWithdraw === false}>Withdraw</Button>
-            </Stack>
-            {/* <Box>
-                <p>New Balance after Transaction: {newBalance}</p>
-            </Box> */}
-            {/* If canWithdraw is FALSE, show the Alert */}
-            {canWithdraw === false ? (
-                <Alert severity='warning' sx={{ mt: 2 }}>
-                    Insufficient funds for Withdrawal
-                </Alert>
-            ) : null}
         </div>
     );
 }
 
 // 3. Export your component
-export default Form;
+export default ManageAccount;
