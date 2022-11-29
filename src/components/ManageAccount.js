@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Heading from './Heading';
 import Deposits from './Deposits';
 import Withdrawals from './Withdrawals';
-import Balance from './Balance';
+import DisplayBalance from './Balance';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -22,29 +22,19 @@ function ManageAccount() {
 
     const [selectedTab, setSelectedTab] = useState(0);
 
-    const deposit = function () {
-        let newBalance = balance + amount;
-        setBalance(newBalance);
-    }
-
     const withdraw = () => {
         setBalance(balance - amount);
     }
 
     const updateBalance = (change) => {
+        // Calculate new balance
         let newBalance = balance + change;
+
+        // Update state variable for balance
         setBalance(newBalance);
     }
 
-    const onFieldChange = (evt) => {
-        // gives us the data in the field
-        let newAmount = evt.target.value;
-        if (newAmount > balance) {
-            newAmount = balance;
-        }
-
-        setAmount(newAmount);
-    }
+    
 
     const onTabChange = (evt, tabIndex) => {
         setSelectedTab(tabIndex);
@@ -53,7 +43,7 @@ function ManageAccount() {
     return (
         <div style={{padding: 16}}>
             <Heading text="Manage Account" type="h2" />
-            <Balance balance={balance} />
+            <DisplayBalance balance={balance} />
             <Tabs value={selectedTab} onChange={onTabChange}>
                 <Tab label="Deposit" />
                 <Tab label="Withdrawal" />
