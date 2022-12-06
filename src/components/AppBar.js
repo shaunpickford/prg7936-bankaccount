@@ -1,21 +1,36 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-export default function ButtonAppBar() {
+export default function AppBar(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <MuiAppBar position="static">
         <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            Shaun's Bank, Inc.
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+            PRG7936 Bank, Inc.
           </Typography>
-          <Button color="inherit">Sign In</Button>
+          {props.currentUser ? (
+            <>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                {props.currentUser.email}
+              </Typography>
+              <Button color="inherit">
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button color="inherit">
+                Sign In
+              </Button>
+            </>
+          )}
         </Toolbar>
-      </AppBar>
+      </MuiAppBar>
     </Box>
   );
 }
