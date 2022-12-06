@@ -1,7 +1,7 @@
 // 1. Import any dependencies
 // useState = "state hook"
 import { useState, useEffect } from 'react';
-import { dbQuery } from '../firebase';
+import { dbQuery, saveBalance } from '../firebase';
 import Heading from './Heading';
 import Deposits from './Deposits';
 import Withdrawals from './Withdrawals';
@@ -27,19 +27,34 @@ function ManageAccount(props) {
 
     const [selectedTab, setSelectedTab] = useState(0);
 
+    // state variable to store account info from db
+    const [accountData, setAccountData] = useState(null);
+
     const fetchAccountInfo = async () => {
         let results = await dbQuery("uid", props.currentUser.uid);
         if (results && results.length === 1) {
+            setAccountData(results[0]);
             setBalance(results[0].balance);
         }
         setLoading(false);
     }
 
+    /* 2 arguments for a side effect:
+        1) Function (the side effect)
+        2) What to watch (the triggers/events)
+    */
     useEffect(() => {
         if (props.currentUser !== null) {
             fetchAccountInfo();
         }
     }, [props.currentUser]);
+
+    useEffect(() => {
+        /*console.log('balance changed');
+        if (accountData) {
+            saveBalance(accountData, balance);
+        }*/
+    }, [balance]);
 
     const withdraw = () => {
         setBalance(balance - amount);

@@ -35,6 +35,10 @@ export const dbQuery = async (field, value) => {
   return results;
 };
 
+export const saveBalance = async (doc, newBalance) => {
+  const result = await doc.update({ balance: newBalance });
+  console.log(result);
+}
 
 export const auth = getAuth(app);
 export default app;
