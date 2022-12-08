@@ -26,6 +26,7 @@ function Withdrawals(props) {
 }
 
   const handleWithdraw = () => {
+    const change = withdrawAmount * -1;
     props.updateBalance(withdrawAmount);
     
     setWithdrawAmount(0);
