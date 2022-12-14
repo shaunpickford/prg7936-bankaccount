@@ -29,5 +29,53 @@ function Withdrawals(props) {
     </Box>
   );
 }
+
+const withdraw = () => {
+  setBalance(balance - amount);
+}
+
+const updateBalance = (change) => {
+  // Calculate new balance
+  let newBalance = balance - change;
+
+  // Update state variable for balance
+  setBalance(newBalance);
+}
+
+const onTabChange = (evt, tabIndex) => {
+  setSelectedTab(tabIndex);
+}
+
+return (
+  <div style={{padding: 16}}>
+      {loading ? (
+          <CircularProgress />
+      ) : (
+          <>
+              <Heading text="Manage Account" type="h2" />
+              <DisplayBalance balance={balance} />
+              <Tabs value={selectedTab} onChange={onTabChange}>
+                  <Tab label="Deposit" />
+                  <Tab label="Withdrawal" />
+              </Tabs>
+              {selectedTab === 0 ? (
+                  <Deposits
+                      balance={balance}
+                      updateBalance={updateBalance}
+                  />
+              ) : (
+                  <Withdrawals
+                      balance={balance}
+                      updateBalance={updateBalance}
+                  />
+              )}
+              <br />
+              <hr />
+          </>
+      )}
+      {props.children}
+  </div>
+);
+
   
 export default Withdrawals;
