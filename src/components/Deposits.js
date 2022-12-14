@@ -34,7 +34,7 @@ function Deposits(props) {
     <Box>
       <Heading text="Deposit Funds" type="h3" />
       <Stack spacing={2} direction="row" justifyContent="center" alignItems={"center"}>
-          <TextField
+      <TextField
             type="number"
             label="Deposit Amount"
             value={depositAmount}

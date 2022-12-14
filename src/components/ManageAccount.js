@@ -6,6 +6,7 @@ import Heading from './Heading';
 import Deposits from './Deposits';
 import Withdrawals from './Withdrawals';
 import DisplayBalance from './Balance';
+import Transaction  from './Transaction';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
