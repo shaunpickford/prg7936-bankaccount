@@ -13,6 +13,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Transactions from './Transaction';
 
 // 2. Create your component function
 function ManageAccount(props) {
