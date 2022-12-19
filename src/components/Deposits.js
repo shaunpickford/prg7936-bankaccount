@@ -24,7 +24,7 @@ function Deposits(props) {
 
   // Click handler for button
   const handleDeposit = () => {
-    props.updateBalance(depositAmount);
+    props.changeBalance(depositAmount);
 
     // Reset the field
     setDepositAmount(0);

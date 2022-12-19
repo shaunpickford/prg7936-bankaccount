@@ -2,10 +2,12 @@
 // useState = "state hook"
 import { useState, useEffect } from 'react';
 import { dbQuery, saveBalance } from '../firebase';
+import Transaction from '../classes/Transaction.js';
 import Heading from './Heading';
 import Deposits from './Deposits';
 import Withdrawals from './Withdrawals';
 import DisplayBalance from './Balance';
+import TransactionsTable from './TransactionsTable';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -24,6 +26,9 @@ function ManageAccount(props) {
 
     // state variable to track loading
     const [loading, setLoading] = useState(true);
+
+    // state variable to track transactions
+    const [transactions, setTransactions] = useState([]);
 
     const [selectedTab, setSelectedTab] = useState(0);
 
@@ -56,13 +61,20 @@ function ManageAccount(props) {
         }*/
     }, [balance]);
 
-    const withdraw = () => {
-        setBalance(balance - amount);
-    }
-
     const updateBalance = (change) => {
         // Calculate new balance
         let newBalance = balance + change;
+
+        // Create an instance of Transaction class
+        let newTransaction = new Transaction(change, newBalance);
+
+        console.log(newTransaction);
+
+        const copyOfTransactions = [...transactions];
+        copyOfTransactions.push(newTransaction);
+
+        // save to state
+        setTransactions(copyOfTransactions);
 
         // Update state variable for balance
         setBalance(newBalance);
@@ -87,7 +99,7 @@ function ManageAccount(props) {
                     {selectedTab === 0 ? (
                         <Deposits
                             balance={balance}
-                            updateBalance={updateBalance}
+                            changeBalance={updateBalance}
                         />
                     ) : (
                         <Withdrawals
@@ -97,6 +109,9 @@ function ManageAccount(props) {
                     )}
                     <br />
                     <hr />
+                    <TransactionsTable
+                        allTransactions={transactions}
+                    />
                 </>
             )}
             {props.children}
