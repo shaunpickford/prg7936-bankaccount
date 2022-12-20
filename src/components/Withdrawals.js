@@ -17,6 +17,10 @@ function Withdrawals(props) {
   /*if (amount > props.balance) {
       canWithdraw = false;
   }*/
+ if (withdrawAmount > props.Balance) {
+    canWithdraw = false;
+  }
+
   const onFieldChange = (evt) => {
     let newAmount = parseInt(evt.target.value);
   
@@ -45,9 +49,13 @@ function Withdrawals(props) {
             variant="outlined"
             size="small"
             onClick={handleWithdraw}
+            disabled={canWithdraw === false}
           >
               Withdraw
           </Button>
+          <Alert severtiy='warning' sx={{ mt: 2}}>
+            Insufficient funds for Withdrawal 
+          </Alert>
     </Box>
   );
 }

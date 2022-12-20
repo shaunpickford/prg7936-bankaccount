@@ -6,6 +6,7 @@ import Heading from './Heading';
 import Deposits from './Deposits';
 import Withdrawals from './Withdrawals';
 import DisplayBalance from './Balance';
+import Transactions from './Transactions';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -82,6 +83,7 @@ function ManageAccount(props) {
                     )}
                     <br />
                     <hr />
+                    <Transactions />
                 </>
             )}
             {props.children}
