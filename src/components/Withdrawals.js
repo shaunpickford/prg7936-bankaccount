@@ -24,13 +24,13 @@ const [withdrawAmount, setWithdrawAmount] = useState(0);
       <Heading text="Withdraw Funds" type="h3" />
 
       <TextField
-            type="number"
+            type="20"
             label="withdraw Amount"
             value={withdrawAmount}
             onChange={onFieldChange}
           />
           <Button
-            variant="outlined"
+            variant="withdrawal"
             size="small"
             onClick={handlewithdrawal}
           >
