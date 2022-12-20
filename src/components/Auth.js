@@ -40,13 +40,20 @@ function Register(props) {
   const onSignInClick = async (evt) => {
     evt.preventDefault();
 
+    /* Call the signInWithEmailAndPassword function, with the following arguments:
+      - auth variable
+      - the email address the user entered
+      - the password the user entered
+    */
     await signInWithEmailAndPassword(auth, email, password)
       .then((credentials) => {
+        // success
         const user = credentials.user;
         console.log(user);
         props.onAuthenticate(user);
       })
       .catch((error) => {
+        // failure
         alert(error.message);
         console.log(error.code, error.message);
       });

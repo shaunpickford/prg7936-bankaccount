@@ -1,4 +1,11 @@
 import { useState } from 'react';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  BrowserRouter,
+  Route,
+  Routes
+} from "react-router-dom";
 
 import './App.css';
 // Import the needed components
@@ -11,6 +18,13 @@ function App() {
   // state variable to track the signed in user
   const [currentUser, setCurrentUser] = useState(null);
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <div>Hello world!</div>,
+    },
+  ]);
+
   const onAuthenticate = (user) => {
     setCurrentUser(user);
   }
@@ -19,12 +33,17 @@ function App() {
 
   return (
     <div className="App">
-      <AppBar currentUser={currentUser} />
-      {currentUser ? (
-        <ManageAccount currentUser={currentUser} />
-      ) : (
-        <Authenticate onAuthenticate={onAuthenticate} />
-      )}
+      <BrowserRouter>
+        <AppBar currentUser={currentUser} />
+        {/* <Routes>
+          <Route index element={<Authenticate />} />
+        </Routes> */}
+        {currentUser ? (
+          <ManageAccount currentUser={currentUser} />
+        ) : (
+          <Authenticate onAuthenticate={onAuthenticate} />
+        )}
+      </BrowserRouter>
     </div>
   );
 }

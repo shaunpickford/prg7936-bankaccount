@@ -13,7 +13,7 @@ import {
 // This is a component named Withdrawals
 function Withdrawals(props) {
   // Track the amount being withdrawn in the state
-  const [withdrawAmount, setWithdrawAmount] = useState(888);
+  const [withdrawAmount, setWithdrawAmount] = useState(0);
 
   // what to do when the user changes the Withdrawal Amount field
   const onFieldChange = (evt) => {

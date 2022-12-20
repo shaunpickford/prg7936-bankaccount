@@ -30,7 +30,7 @@ function ManageAccount(props) {
     // state variable to track transactions
     const [transactions, setTransactions] = useState([]);
 
-    const [selectedTab, setSelectedTab] = useState(0);
+    const [selectedTab, setSelectedTab] = useState(1);
 
     // state variable to store account info from db
     const [accountData, setAccountData] = useState(null);
@@ -96,7 +96,7 @@ function ManageAccount(props) {
                         <Tab label="Deposit" />
                         <Tab label="Withdrawal" />
                     </Tabs>
-                    {selectedTab === 0 ? (
+                    {/* {selectedTab === 0 ? (
                         <Deposits
                             balance={balance}
                             changeBalance={updateBalance}
@@ -111,7 +111,7 @@ function ManageAccount(props) {
                     <hr />
                     <TransactionsTable
                         allTransactions={transactions}
-                    />
+                    /> */}
                 </>
             )}
             {props.children}
