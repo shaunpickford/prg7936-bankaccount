@@ -1,11 +1,13 @@
 // 1. Import any dependencies
 // useState = "state hook"
 import { useState, useEffect } from 'react';
-import { dbQuery } from '../firebase';
+import { dbQuery, saveBalance } from '../firebase';
+import Transaction from '../classes/Transaction.js';
 import Heading from './Heading';
 import Deposits from './Deposits';
 import Withdrawals from './Withdrawals';
 import DisplayBalance from './Balance';
+import TransactionsTable from './TransactionsTable';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -25,29 +27,54 @@ function ManageAccount(props) {
     // state variable to track loading
     const [loading, setLoading] = useState(true);
 
-    const [selectedTab, setSelectedTab] = useState(0);
+    // state variable to track transactions
+    const [transactions, setTransactions] = useState([]);
+
+    const [selectedTab, setSelectedTab] = useState(1);
+
+    // state variable to store account info from db
+    const [accountData, setAccountData] = useState(null);
 
     const fetchAccountInfo = async () => {
         let results = await dbQuery("uid", props.currentUser.uid);
         if (results && results.length === 1) {
+            setAccountData(results[0]);
             setBalance(results[0].balance);
         }
         setLoading(false);
     }
 
+    /* 2 arguments for a side effect:
+        1) Function (the side effect)
+        2) What to watch (the triggers/events)
+    */
     useEffect(() => {
         if (props.currentUser !== null) {
             fetchAccountInfo();
         }
     }, [props.currentUser]);
 
-    const withdraw = () => {
-        setBalance(balance - amount);
-    }
+    useEffect(() => {
+        /*console.log('balance changed');
+        if (accountData) {
+            saveBalance(accountData, balance);
+        }*/
+    }, [balance]);
 
     const updateBalance = (change) => {
         // Calculate new balance
         let newBalance = balance + change;
+
+        // Create an instance of Transaction class
+        let newTransaction = new Transaction(change, newBalance);
+
+        console.log(newTransaction);
+
+        const copyOfTransactions = [...transactions];
+        copyOfTransactions.push(newTransaction);
+
+        // save to state
+        setTransactions(copyOfTransactions);
 
         // Update state variable for balance
         setBalance(newBalance);
@@ -69,10 +96,10 @@ function ManageAccount(props) {
                         <Tab label="Deposit" />
                         <Tab label="Withdrawal" />
                     </Tabs>
-                    {selectedTab === 0 ? (
+                    {/* {selectedTab === 0 ? (
                         <Deposits
                             balance={balance}
-                            updateBalance={updateBalance}
+                            changeBalance={updateBalance}
                         />
                     ) : (
                         <Withdrawals
@@ -82,6 +109,9 @@ function ManageAccount(props) {
                     )}
                     <br />
                     <hr />
+                    <TransactionsTable
+                        allTransactions={transactions}
+                    /> */}
                 </>
             )}
             {props.children}
